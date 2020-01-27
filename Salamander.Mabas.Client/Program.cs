@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Salamander.Mabas.Client
 {
+    /// <summary>
+    /// Program Class.
+    /// </summary>
     public class Program
     {
         /// <summary>
