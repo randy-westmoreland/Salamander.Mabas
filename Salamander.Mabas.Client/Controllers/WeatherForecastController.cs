@@ -32,7 +32,7 @@ namespace Salamander.Mabas.Client.Controllers
         {
             //_csvManager.LoadCsv("C:\\Users\\User\\Desktop\\mabas-work\\mabas1.csv");
             //_csvManager.LoadCsv("C:\\mabas6.csv");
-            _csvManager.LoadCsv(Directory.GetCurrentDirectory() + "\\Files\\mabas6.csv");
+            _csvManager.LoadCsv(Directory.GetCurrentDirectory() + "\\Files\\mabas9.csv");
 
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

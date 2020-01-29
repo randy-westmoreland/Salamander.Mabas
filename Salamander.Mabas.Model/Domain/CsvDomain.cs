@@ -92,5 +92,37 @@
         /// The name of the department.
         /// </value>
         public string DepartmentName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the team description.
+        /// </summary>
+        /// <value>
+        /// The team description.
+        /// </value>
+        public string TeamDescription { get; set; }
+
+        /// <summary>
+        /// Gets or sets the phone number.
+        /// </summary>
+        /// <value>
+        /// The phone number.
+        /// </value>
+        public string PhoneNumber { get; set; }
+
+        /// <summary>
+        /// Gets or sets the rate.
+        /// </summary>
+        /// <value>
+        /// The rate.
+        /// </value>
+        public string Rate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the division.
+        /// </summary>
+        /// <value>
+        /// The division.
+        /// </value>
+        public string Division { get; set; }
     }
 }

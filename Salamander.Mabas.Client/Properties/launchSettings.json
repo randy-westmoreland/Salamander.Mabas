@@ -33,7 +33,7 @@
       "launchUrl": "http://localhost:80/",
       "environmentVariables": {
         "Key": "Value",
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Staging"
       }
     }
   }

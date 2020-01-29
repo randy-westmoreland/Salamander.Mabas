@@ -44,7 +44,7 @@ namespace Salamander.Mabas.Business.Managers
             var bytes = BuildByteList(records);
             var streams = BuildMemoryStreamList(bytes);
 
-            SaveToFile(streams[2]);
+            SaveToFile(streams[1]);
         }
 
         /// <summary>
