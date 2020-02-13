@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Salamander.Mabas.Business.Contracts;
+using Salamander.Mabas.Model.AppSettings;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Salamander.Mabas.Business.Contracts;
 
 namespace Salamander.Mabas.Client.Controllers
 {
@@ -19,20 +21,35 @@ namespace Salamander.Mabas.Client.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IOptions<AuthorizationSettings> _authSettings;
+        private readonly IAuthorizationManager _authorizationManager;
+        private readonly IOrganizationManager _organizationManager;
         private readonly ICsvManager _csvManager;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, ICsvManager csvManager)
+        public WeatherForecastController(
+            ILogger<WeatherForecastController> logger,
+            IOptions<AuthorizationSettings> authSettings,
+            IAuthorizationManager authorizationManager,
+            IOrganizationManager organizationManager,
+            ICsvManager csvManager)
         {
             _logger = logger;
+            _authSettings = authSettings;
+            _authorizationManager = authorizationManager;
+            _organizationManager = organizationManager;
             _csvManager = csvManager;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IEnumerable<WeatherForecast>> GetAsync()
         {
             //_csvManager.LoadCsv("C:\\Users\\User\\Desktop\\mabas-work\\mabas1.csv");
             //_csvManager.LoadCsv("C:\\mabas6.csv");
-            _csvManager.LoadCsv(Directory.GetCurrentDirectory() + "\\Files\\mabas9.csv");
+            var authData = await _authorizationManager.RequestAccessToken(_authSettings.Value.Endpoint).ConfigureAwait(false);
+            var csvData = _csvManager.LoadCsv($"{Directory.GetCurrentDirectory()}\\Files\\mabas12.csv");
+            var foo = await _organizationManager.GetOrganization(authData.Data.Response.TokenId, csvData).ConfigureAwait(false);
+
+            //_csvManager.LoadCsv(Directory.GetCurrentDirectory() + "\\Files\\mabas12.csv");
 
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

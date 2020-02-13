@@ -1,5 +1,4 @@
 ﻿using Salamander.Mabas.Business.Contracts;
-using Salamander.Mabas.Common.Extensions;
 using Salamander.Mabas.Model.Domain;
 using System;
 using System.Collections.Generic;
@@ -35,80 +34,51 @@ namespace Salamander.Mabas.Business.Managers
         /// Loads the CSV.
         /// </summary>
         /// <param name="path">The path.</param>
-        public void LoadCsv(string path)
+        /// <returns>List<CsvModel></returns>
+        public List<CsvModel> LoadCsv(string path)
         {
             using var reader = _systemRuntimeExtWrapper.StreamReader(path);
             using var csv = _csvHelperWrapper.CsvReader(reader, CultureInfo.InvariantCulture);
 
-            var records = csv.GetRecords<CsvDomain>().ToList();
-            var bytes = BuildByteList(records);
-            var streams = BuildMemoryStreamList(bytes);
+            return csv.GetRecords<CsvModel>().ToList();
+            //var images = Base64ToImage(records);
 
-            SaveToFile(streams[1]);
+            //SaveToFile(images);
         }
 
         /// <summary>
-        /// Builds the byte list.
+        /// Base64s to image.
         /// </summary>
-        /// <param name="data">The data.</param>
-        /// <returns>IList<byte[]></returns>
-        private static IList<byte[]> BuildByteList(IList<CsvDomain> data)
+        /// <param name="records">The records.</param>
+        /// <returns>List<Image></returns>
+        private List<Image> Base64ToImage(List<CsvModel> records)
         {
-            var bytes = new List<byte[]>();
-            data.ForEach(x => bytes.Add(ConvertHexToByteArray(x.ImageFieldAsHex)));
+            var imageList = new List<Image>();
 
-            return bytes;
-        }
-
-        /// <summary>
-        /// Builds the memory stream list.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        /// <returns>IList<MemoryStream></returns>
-        private IList<MemoryStream> BuildMemoryStreamList(IList<byte[]> data)
-        {
-            var memStream = new List<MemoryStream>();
-            data.ForEach(x => memStream.Add(_systemRuntimeExtWrapper.MemoryStream(x)));
-
-            return memStream;
-        }
-
-        /// <summary>
-        /// Converts the hexadecimal to byte array.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>byte[]</returns>
-        private static byte[] ConvertHexToByteArray(string value)
-        {
-            var len = value.Length;
-            if (len % 2 == 1)
+            records.ForEach(x =>
             {
-                value = "0" + value;
-                len = value.Length;
-            }
+                var imageBytes = Convert.FromBase64String(x.Image);
 
-            var bytes = new byte[len / 2];
+                using var memoryStream = _systemRuntimeExtWrapper.MemoryStream(imageBytes, 0, imageBytes.Length);
+                imageList.Add(Image.FromStream(memoryStream, true));
+            });
 
-            for (var i = 0; i < len; i += 2)
-            {
-                bytes[i / 2] = Convert.ToByte(value.Substring(i, 2), 16);
-            }
-
-            return bytes;
+            return imageList;
         }
 
         /// <summary>
         /// Saves to file.
         /// </summary>
-        /// <param name="stream">The stream.</param>
-        private static void SaveToFile(MemoryStream stream)
+        /// <param name="images">The images.</param>
+        private void SaveToFile(List<Image> images)
         {
-            using var memStream = new MemoryStream();
-            stream?.CopyTo(memStream);
-            memStream.Position = 0;
-
-            using var bitmap = new Bitmap(memStream);
-            bitmap.Save(Directory.GetCurrentDirectory() + "\\Files\\test.jpg", ImageFormat.Jpeg);
+            var num = 1;
+            images.ForEach(x =>
+            {
+                using var bitmap = new Bitmap(x);
+                bitmap.Save(Directory.GetCurrentDirectory() + $"\\Files\\test{num}.jpg", ImageFormat.Jpeg);
+                num++;
+            });
         }
     }
 }

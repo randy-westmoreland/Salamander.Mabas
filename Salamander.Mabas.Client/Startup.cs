@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Salamander.Mabas.Client.Configurations;
+using Salamander.Mabas.Model.AppSettings;
 
 namespace Salamander.Mabas.Client
 {
@@ -35,6 +36,9 @@ namespace Salamander.Mabas.Client
         /// <param name="services">The services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<AuthorizationSettings>(Configuration.GetSection("AuthorizationSettings"));
+            services.Configure<OrganizationSettings>(Configuration.GetSection("OrganizationSettings"));
+
             services.AddControllersWithViews();
             services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist");
 

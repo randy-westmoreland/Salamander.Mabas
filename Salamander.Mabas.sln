@@ -7,11 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Salamander.Mabas.Client", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Salamander.Mabas.Business", "Salamander.Mabas.Business\Salamander.Mabas.Business.csproj", "{87F04BDF-8B3A-4176-8979-9985D66BD926}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Salamander.Mabas.Common", "Salamander.Mabas.Common\Salamander.Mabas.Common.csproj", "{09541418-3572-468B-BB70-5E1D752A3045}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Salamander.Mabas.Model", "Salamander.Mabas.Model\Salamander.Mabas.Model.csproj", "{298A0A53-BE7E-4E92-928F-E73E7C37120A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salamander.Mabas.Tests", "Salamander.Mabas.Tests\Salamander.Mabas.Tests.csproj", "{E22CFCDB-FD8E-4A6A-BF05-6F6FA4CB813B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Salamander.Mabas.Tests", "Salamander.Mabas.Tests\Salamander.Mabas.Tests.csproj", "{E22CFCDB-FD8E-4A6A-BF05-6F6FA4CB813B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7533E65B-7817-4172-A94E-116A3B6D1B68}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Salamander.Mabas.Common", "Salamander.Mabas.Common\Salamander.Mabas.Common.csproj", "{C517CA66-609C-4622-B03F-A3F17C51C4D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +32,6 @@ Global
 		{87F04BDF-8B3A-4176-8979-9985D66BD926}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87F04BDF-8B3A-4176-8979-9985D66BD926}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87F04BDF-8B3A-4176-8979-9985D66BD926}.Release|Any CPU.Build.0 = Release|Any CPU
-		{09541418-3572-468B-BB70-5E1D752A3045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09541418-3572-468B-BB70-5E1D752A3045}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09541418-3572-468B-BB70-5E1D752A3045}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09541418-3572-468B-BB70-5E1D752A3045}.Release|Any CPU.Build.0 = Release|Any CPU
 		{298A0A53-BE7E-4E92-928F-E73E7C37120A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{298A0A53-BE7E-4E92-928F-E73E7C37120A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{298A0A53-BE7E-4E92-928F-E73E7C37120A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +40,10 @@ Global
 		{E22CFCDB-FD8E-4A6A-BF05-6F6FA4CB813B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E22CFCDB-FD8E-4A6A-BF05-6F6FA4CB813B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E22CFCDB-FD8E-4A6A-BF05-6F6FA4CB813B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C517CA66-609C-4622-B03F-A3F17C51C4D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C517CA66-609C-4622-B03F-A3F17C51C4D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C517CA66-609C-4622-B03F-A3F17C51C4D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C517CA66-609C-4622-B03F-A3F17C51C4D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

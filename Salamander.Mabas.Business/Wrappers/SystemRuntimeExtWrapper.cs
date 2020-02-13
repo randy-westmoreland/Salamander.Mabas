@@ -22,6 +22,20 @@ namespace Salamander.Mabas.Business.Wrappers
         }
 
         /// <summary>
+        /// Converts bytes to Memory Stream.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <param name="index">The index.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>
+        /// MemoryStream
+        /// </returns>
+        public MemoryStream MemoryStream(byte[] bytes, int index, int count)
+        {
+            return new MemoryStream(bytes, index, count);
+        }
+
+        /// <summary>
         /// Reads the file stream.
         /// </summary>
         /// <param name="path">The path.</param>
@@ -31,6 +45,18 @@ namespace Salamander.Mabas.Business.Wrappers
         public StreamReader StreamReader(string path)
         {
             return new StreamReader(path);
+        }
+
+        /// <summary>
+        /// Strings the reader.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns>
+        /// StringReader
+        /// </returns>
+        public StringReader StringReader(string path)
+        {
+            return new StringReader(path);
         }
     }
 }
