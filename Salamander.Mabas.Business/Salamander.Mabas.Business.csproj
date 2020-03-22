@@ -36,7 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Salamander.Mabas.Common\Salamander.Mabas.Common.csproj" />
     <ProjectReference Include="..\Salamander.Mabas.Model\Salamander.Mabas.Model.csproj" />
   </ItemGroup>
 
