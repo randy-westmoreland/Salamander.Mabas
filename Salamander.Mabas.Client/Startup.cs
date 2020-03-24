@@ -38,6 +38,7 @@ namespace Salamander.Mabas.Client
         {
             services.Configure<AuthorizationSettings>(Configuration.GetSection("AuthorizationSettings"));
             services.Configure<OrganizationSettings>(Configuration.GetSection("OrganizationSettings"));
+            services.Configure<UserSettings>(Configuration.GetSection("UserSettings"));
 
             services.AddControllersWithViews();
             services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist");

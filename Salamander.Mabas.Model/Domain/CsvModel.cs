@@ -1,4 +1,6 @@
-﻿namespace Salamander.Mabas.Model.Domain
+﻿using CsvHelper.Configuration.Attributes;
+
+namespace Salamander.Mabas.Model.Domain
 {
     /// <summary>
     /// CsvDomain Class.
@@ -59,15 +61,17 @@
         /// <value>
         /// The image.
         /// </value>
+        [Name("img1")]
         public string Image { get; set; }
 
         /// <summary>
-        /// Gets or sets the userid.
+        /// Gets or sets the user identifier.
         /// </summary>
         /// <value>
-        /// The userid.
+        /// The user identifier.
         /// </value>
-        public string Userid { get; set; }
+        [Name("UserID")]
+        public string UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the rank.
@@ -102,6 +106,14 @@
         public string TeamDescription { get; set; }
 
         /// <summary>
+        /// Gets or sets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
+        public string Status { get; set; }
+
+        /// <summary>
         /// Gets or sets the phone number.
         /// </summary>
         /// <value>
@@ -124,5 +136,31 @@
         /// The division.
         /// </value>
         public string Division { get; set; }
+
+        /// <summary>
+        /// Gets or sets the illinois task force.
+        /// </summary>
+        /// <value>
+        /// The illinois task force.
+        /// </value>
+        [Name("ILTF1")]
+        public string IllinoisTaskForce { get; set; }
+
+        /// <summary>
+        /// Gets or sets the fire department identifier.
+        /// </summary>
+        /// <value>
+        /// The fire department identifier.
+        /// </value>
+        [Name("fdid")]
+        public string FireDepartmentId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the state.
+        /// </summary>
+        /// <value>
+        /// The state.
+        /// </value>
+        public string State { get; set; }
     }
 }

@@ -24,6 +24,7 @@ namespace Salamander.Mabas.Client.Controllers
         private readonly IOptions<AuthorizationSettings> _authSettings;
         private readonly IAuthorizationManager _authorizationManager;
         private readonly IOrganizationManager _organizationManager;
+        private readonly IUserManager _userManager;
         private readonly ICsvManager _csvManager;
 
         public WeatherForecastController(
@@ -31,12 +32,14 @@ namespace Salamander.Mabas.Client.Controllers
             IOptions<AuthorizationSettings> authSettings,
             IAuthorizationManager authorizationManager,
             IOrganizationManager organizationManager,
+            IUserManager userManager,
             ICsvManager csvManager)
         {
             _logger = logger;
             _authSettings = authSettings;
             _authorizationManager = authorizationManager;
             _organizationManager = organizationManager;
+            _userManager = userManager;
             _csvManager = csvManager;
         }
 
@@ -46,7 +49,7 @@ namespace Salamander.Mabas.Client.Controllers
             //_csvManager.LoadCsv("C:\\Users\\User\\Desktop\\mabas-work\\mabas1.csv");
             //_csvManager.LoadCsv("C:\\mabas6.csv");
             var authData = await _authorizationManager.RequestAccessToken(_authSettings.Value.Endpoint).ConfigureAwait(false);
-            var csvData = _csvManager.LoadCsv($"{Directory.GetCurrentDirectory()}\\Files\\mabas12.csv");
+            var csvData = _csvManager.LoadCsv($"{Directory.GetCurrentDirectory()}\\Files\\mabas14.csv");
             var foo = await _organizationManager.GetOrganization(authData.Data.Response.TokenId, csvData).ConfigureAwait(false);
 
             //_csvManager.LoadCsv(Directory.GetCurrentDirectory() + "\\Files\\mabas12.csv");

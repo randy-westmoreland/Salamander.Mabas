@@ -33,14 +33,19 @@ namespace Salamander.Mabas.Business.Managers
         /// </summary>
         /// <param name="token">The token.</param>
         /// <param name="records">The records.</param>
-        /// <returns>Task<List<OrganizationResponse>></returns>
-        public async Task<List<OrganizationResponse>> GetOrganization(string token, List<CsvModel> records)
+        /// <returns>List<OrganizationResponse> orgResponse, List<CsvModel> records)</returns>
+        public async Task<(List<OrganizationResponse> orgResponse, List<CsvModel> records)> GetOrganization(string token, List<CsvModel> records)
         {
             var orgResponse = new List<OrganizationResponse>();
             var client = new RestClient(_orgSettings.Value.Endpoint);
 
-            for (var i = 0; i < 10; i++)
+            for (var i = 0; i < records?.Count; i++)
             {
+                if (string.Equals(records[i].IllinoisTaskForce, "yes", System.StringComparison.InvariantCultureIgnoreCase))
+                {
+                    records[i].TeamDescription = "ILTF-1";
+                }
+
                 var request = new RestRequest(Method.POST) { RequestFormat = DataFormat.Xml };
                 request = BuildOrganizationRequest(records, request, token, i);
 
@@ -48,7 +53,7 @@ namespace Salamander.Mabas.Business.Managers
                 orgResponse.Add(response.Data);
             }
 
-            return orgResponse;
+            return (orgResponse, records);
         }
 
         /// <summary>
@@ -73,13 +78,13 @@ namespace Salamander.Mabas.Business.Managers
                     {
                         new FilterModel
                         {
-                            Field = "Name",
-                            Value = new List<string> { records?[index].DepartmentName },
+                            Field = "IdentityCode",
+                            Value = new List<string> { records?[index].FireDepartmentId.Trim() },
                         },
                         new FilterModel
                         {
                             Field = "StateTerritoryCode",
-                            Value = new List<string> { "IL" }
+                            Value = new List<string> { records?[index].State }
                         }
                     }
                 }
