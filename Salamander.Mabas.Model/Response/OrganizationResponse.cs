@@ -24,5 +24,13 @@ namespace Salamander.Mabas.Model.Response
         /// </value>
         [DeserializeAs(Name = "PK")]
         public int PrimaryKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        /// <value>
+        /// The user identifier.
+        /// </value>
+        public string UserId { get; set; }
     }
 }

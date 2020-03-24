@@ -50,7 +50,9 @@ namespace Salamander.Mabas.Business.Managers
                 request = BuildOrganizationRequest(records, request, token, i);
 
                 var response = await client.ExecuteAsync<OrganizationResponse>(request, CancellationToken.None).ConfigureAwait(false);
+
                 orgResponse.Add(response.Data);
+                orgResponse[i].UserId = records[i].UserId;
             }
 
             return (orgResponse, records);
@@ -72,7 +74,7 @@ namespace Salamander.Mabas.Business.Managers
 
             var data = new OrganizationRequest
             {
-                Item = new RequestData
+                Item = new OrganizationRequestModel
                 {
                     Filter = new List<FilterModel>
                     {

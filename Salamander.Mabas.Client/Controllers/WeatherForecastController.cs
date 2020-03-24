@@ -25,6 +25,7 @@ namespace Salamander.Mabas.Client.Controllers
         private readonly IAuthorizationManager _authorizationManager;
         private readonly IOrganizationManager _organizationManager;
         private readonly IUserManager _userManager;
+        private readonly IUserPersonalManager _userPersonalManager;
         private readonly ICsvManager _csvManager;
 
         public WeatherForecastController(
@@ -33,6 +34,7 @@ namespace Salamander.Mabas.Client.Controllers
             IAuthorizationManager authorizationManager,
             IOrganizationManager organizationManager,
             IUserManager userManager,
+            IUserPersonalManager userPersonalManager,
             ICsvManager csvManager)
         {
             _logger = logger;
@@ -40,6 +42,7 @@ namespace Salamander.Mabas.Client.Controllers
             _authorizationManager = authorizationManager;
             _organizationManager = organizationManager;
             _userManager = userManager;
+            _userPersonalManager = userPersonalManager;
             _csvManager = csvManager;
         }
 
@@ -50,7 +53,9 @@ namespace Salamander.Mabas.Client.Controllers
             //_csvManager.LoadCsv("C:\\mabas6.csv");
             var authData = await _authorizationManager.RequestAccessToken(_authSettings.Value.Endpoint).ConfigureAwait(false);
             var csvData = _csvManager.LoadCsv($"{Directory.GetCurrentDirectory()}\\Files\\mabas14.csv");
-            var foo = await _organizationManager.GetOrganization(authData.Data.Response.TokenId, csvData).ConfigureAwait(false);
+            var (orgResponse, records) = await _organizationManager.GetOrganization(authData.Data.Response.TokenId, csvData).ConfigureAwait(false);
+            var userResponse = await _userManager.CreateUser(authData.Data.Response.TokenId, orgResponse, records).ConfigureAwait(false);
+            _ = await _userPersonalManager.SavePersonalRecord(authData.Data.Response.TokenId, userResponse, records).ConfigureAwait(false);
 
             //_csvManager.LoadCsv(Directory.GetCurrentDirectory() + "\\Files\\mabas12.csv");
 

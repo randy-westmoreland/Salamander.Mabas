@@ -13,13 +13,13 @@ namespace Salamander.Mabas.Model.Domain
         /// <value>
         /// The item.
         /// </value>
-        public RequestData Item { get; set; }
+        public OrganizationRequestModel Item { get; set; }
     }
 
     /// <summary>
-    /// RequestData Class.
+    /// OrganizationRequestModel Class.
     /// </summary>
-    public class RequestData
+    public class OrganizationRequestModel
     {
         /// <summary>
         /// Gets or sets the page.
@@ -43,7 +43,7 @@ namespace Salamander.Mabas.Model.Domain
         /// <value>
         /// The filter.
         /// </value>
-        public IList<FilterModel> Filter { get; set; }
+        public List<FilterModel> Filter { get; set; }
     }
 
     /// <summary>
@@ -73,6 +73,6 @@ namespace Salamander.Mabas.Model.Domain
         /// <value>
         /// The value.
         /// </value>
-        public IList<string> Value { get; set; }
+        public List<string> Value { get; set; }
     }
 }

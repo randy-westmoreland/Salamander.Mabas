@@ -8,13 +8,27 @@ namespace Salamander.Mabas.Model.Request
     public class UserRequest
     {
         /// <summary>
+        /// Gets or sets the item.
+        /// </summary>
+        /// <value>
+        /// The item.
+        /// </value>
+        public UserRequestModel Item { get; set; }
+    }
+
+    /// <summary>
+    /// UserRequestData Class.
+    /// </summary>
+    public class UserRequestModel
+    {
+        /// <summary>
         /// Gets or sets the primary key.
         /// </summary>
         /// <value>
         /// The primary key.
         /// </value>
         [JsonProperty(PropertyName = "PK")]
-        public int PrimaryKey { get; set; }
+        public int PrimaryKey { get; set; } = -1;
 
         /// <summary>
         /// Gets or sets the identity code.
@@ -87,13 +101,13 @@ namespace Salamander.Mabas.Model.Request
         /// <value>
         /// The rate information.
         /// </value>
-        public RateInfo RateInfo { get; set; }
+        public RateInfoModel RateInfo { get; set; }
     }
 
     /// <summary>
-    /// RateInfo Class.
+    /// RateInfoModel Class.
     /// </summary>
-    public class RateInfo
+    public class RateInfoModel
     {
         /// <summary>
         /// Gets or sets the standard.

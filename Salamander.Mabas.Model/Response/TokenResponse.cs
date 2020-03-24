@@ -14,13 +14,13 @@ namespace Salamander.Mabas.Model.Domain
         /// The data.
         /// </value>
         [DeserializeAs(Name = "Data")]
-        public Response Response { get; set; }
+        public ResponseModel Response { get; set; }
     }
 
     /// <summary>
-    /// Response Class.
+    /// ResponseModel Class.
     /// </summary>
-    public class Response
+    public class ResponseModel
     {
         /// <summary>
         /// Gets or sets the time zone identifier.
