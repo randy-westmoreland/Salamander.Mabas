@@ -31,18 +31,18 @@ namespace Salamander.Mabas.Business.Managers
         }
 
         /// <summary>
-        /// Creates the user.
+        /// Creates the users.
         /// </summary>
         /// <param name="token">The token.</param>
         /// <param name="orgResponse">The org response.</param>
         /// <param name="records">The records.</param>
         /// <returns>Task<List<UserResponse>></returns>
-        public async Task<List<UserResponse>> CreateUser(string token, List<OrganizationResponse> orgResponse, List<CsvModel> records)
+        public async Task<List<UserResponse>> CreateUsers(string token, List<OrganizationResponse> orgResponse, List<CsvModel> records)
         {
             var userResponse = new List<UserResponse>();
             var client = new RestClient(_userSettings.Value.Endpoint);
 
-            for (var i = 0; i < 2; i++)
+            for (var i = 0; i < records.Count; i++)
             {
                 var record = records?.Where(x => x.UserId == orgResponse[i].UserId).FirstOrDefault();
                 var request = new RestRequest(Method.PUT) { RequestFormat = DataFormat.Xml };

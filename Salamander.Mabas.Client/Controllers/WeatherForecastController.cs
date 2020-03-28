@@ -26,6 +26,7 @@ namespace Salamander.Mabas.Client.Controllers
         private readonly IOrganizationManager _organizationManager;
         private readonly IUserManager _userManager;
         private readonly IUserPersonalManager _userPersonalManager;
+        private readonly IImageManager _imageManager;
         private readonly ICsvManager _csvManager;
 
         public WeatherForecastController(
@@ -35,6 +36,7 @@ namespace Salamander.Mabas.Client.Controllers
             IOrganizationManager organizationManager,
             IUserManager userManager,
             IUserPersonalManager userPersonalManager,
+            IImageManager imageManager,
             ICsvManager csvManager)
         {
             _logger = logger;
@@ -43,21 +45,20 @@ namespace Salamander.Mabas.Client.Controllers
             _organizationManager = organizationManager;
             _userManager = userManager;
             _userPersonalManager = userPersonalManager;
+            _imageManager = imageManager;
             _csvManager = csvManager;
         }
 
         [HttpGet]
         public async Task<IEnumerable<WeatherForecast>> GetAsync()
         {
-            //_csvManager.LoadCsv("C:\\Users\\User\\Desktop\\mabas-work\\mabas1.csv");
-            //_csvManager.LoadCsv("C:\\mabas6.csv");
             var authData = await _authorizationManager.RequestAccessToken(_authSettings.Value.Endpoint).ConfigureAwait(false);
             var csvData = _csvManager.LoadCsv($"{Directory.GetCurrentDirectory()}\\Files\\mabas14.csv");
             var (orgResponse, records) = await _organizationManager.GetOrganization(authData.Data.Response.TokenId, csvData).ConfigureAwait(false);
-            var userResponse = await _userManager.CreateUser(authData.Data.Response.TokenId, orgResponse, records).ConfigureAwait(false);
-            _ = await _userPersonalManager.SavePersonalRecord(authData.Data.Response.TokenId, userResponse, records).ConfigureAwait(false);
+            var userResponse = await _userManager.CreateUsers(authData.Data.Response.TokenId, orgResponse, records).ConfigureAwait(false);
 
-            //_csvManager.LoadCsv(Directory.GetCurrentDirectory() + "\\Files\\mabas12.csv");
+            _ = await _userPersonalManager.SavePersonalRecord(authData.Data.Response.TokenId, userResponse, records).ConfigureAwait(false);
+            await _imageManager.SaveImages(userResponse, orgResponse, records, authData.Data.Response.TokenId).ConfigureAwait(false);
 
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

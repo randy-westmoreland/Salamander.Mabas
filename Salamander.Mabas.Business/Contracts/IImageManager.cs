@@ -1,23 +1,23 @@
 ﻿using Salamander.Mabas.Model.Domain;
 using Salamander.Mabas.Model.Response;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace Salamander.Mabas.Business.Contracts
 {
     /// <summary>
-    /// IUserManager Interface.
+    /// IImageManager Interface.
     /// </summary>
-    public interface IUserManager
+    public interface IImageManager
     {
         /// <summary>
-        /// Creates the users.
+        /// Saves the images.
         /// </summary>
-        /// <param name="token">The token.</param>
+        /// <param name="userResponse">The user response.</param>
         /// <param name="orgResponse">The org response.</param>
         /// <param name="records">The records.</param>
-        /// <returns>Task<List<UserResponse>></returns>
-        Task<List<UserResponse>> CreateUsers(string token, List<OrganizationResponse> orgResponse, List<CsvModel> records);
+        /// <param name="token">The token.</param>
+        /// <returns>Task</returns>
+        Task SaveImages(List<UserResponse> userResponse, List<OrganizationResponse> orgResponse, List<CsvModel> records, string token);
     }
 }

@@ -42,7 +42,7 @@ namespace Salamander.Mabas.Business.Managers
             var userPersonalResponse = new List<UserPersonalResponse>();
             var client = new RestClient(_userSettings.Value.Personal.Endpoint);
 
-            for (var i = 0; i < 2; i++)
+            for (var i = 0; i < records.Count; i++)
             {
                 var record = records?.Where(x => x.UserId == userResponse[i].Data.UserId).FirstOrDefault();
                 var request = new RestRequest(Method.PUT) { RequestFormat = DataFormat.Xml };
